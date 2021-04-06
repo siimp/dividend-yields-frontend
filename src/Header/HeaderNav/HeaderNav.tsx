@@ -30,7 +30,7 @@ class HeaderNav extends React.PureComponent<IHeaderNavProps, IHeaderNavState> {
     }
 
     public getActiveClass(tab: string): string {
-        return tab === this.state.activeTab ? 'is-active' : '';
+        return tab === this.state.activeTab ? 'is-active has-text-info' : '';
     }
 
     public componentDidUpdate(prevProps: any, prevState: any) {

@@ -6,8 +6,8 @@ import './DividendYield.css';
 import DividendYieldRow from './DividendYieldRow/DividendYieldRow';
 
 
-const API_HOST = 'https://dividend-yields.siimp.ee/api';
-// const API_HOST = 'http://localhost:8080';
+// const API_HOST = 'https://dividend-yields.siimp.ee/api';
+const API_HOST = 'http://localhost:8080';
 const API_YEAR = API_HOST + '/dividend-yield?year=';
 const API_FUTURE = API_HOST + '/dividend-yield/future';
 
@@ -101,7 +101,8 @@ class DividendYield extends React.PureComponent<IDividendYieldProps, IDividendYi
                         </div>
                     </div>
                 
-                    { this.state.data.length === 0 ? (<p className="is-size-5">No data is available at this moment.</p>) :
+                    { this.state.data.length === 0 && !this.state.loading ? (<p className="is-size-5">No dividends found</p>) : null }
+                    { this.state.data.length > 0 && !this.state.loading ? 
                         <table className="table is-bordered">
                             <thead>
                                 <tr>
@@ -127,7 +128,7 @@ class DividendYield extends React.PureComponent<IDividendYieldProps, IDividendYi
                                     detailedInfoModalSetter={this.setDetailedInfoModal} />))}
                             </tbody>
                         </table>
-                    }
+                    : null }
                 </div>
             </section>
         );
@@ -144,11 +145,16 @@ class DividendYield extends React.PureComponent<IDividendYieldProps, IDividendYi
     }
 
     private fetchData() {
-        this.setState({ loading: true });
-        fetch(this.getApiUrl())
+        const promise: Promise<void> = fetch(this.getApiUrl())
             .then(response => response.json())
-            .then(jsonData => this.setState({ data: jsonData, loading: false }))
-            .catch(error => this.setState({ loading: false }));
+            .then(jsonData => this.setState({ data: jsonData }))
+
+        setTimeout(() => {
+            this.setState({ loading: true });
+            promise.finally(() => {
+                this.setState({ loading: false });
+            })
+        }, 200)
     }
 
     private getApiUrl(): string {
