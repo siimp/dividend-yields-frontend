@@ -6,8 +6,8 @@ import './DividendYield.css';
 import DividendYieldRow from './DividendYieldRow/DividendYieldRow';
 
 
-// const API_HOST = 'https://dividend-yields.siimp.ee/api';
-const API_HOST = 'http://localhost:8080';
+const API_HOST = 'https://dividend-yields.siimp.ee/api';
+// const API_HOST = 'http://localhost:8080';
 const API_YEAR = API_HOST + '/dividend-yield?year=';
 const API_FUTURE = API_HOST + '/dividend-yield/future';
 
