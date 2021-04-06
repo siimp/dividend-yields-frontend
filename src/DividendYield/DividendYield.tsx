@@ -124,7 +124,7 @@ class DividendYield extends React.PureComponent<IDividendYieldProps, IDividendYi
                                     totalYesterdaysDividendYield={el.totalYesterdaysDividendYield}
                                     dividends={el.dividends}
                                     isin={el.isin}
-                                    infoLink={'http://www.nasdaqbaltic.com/market/?pg=details&lang=en&instrument=' + el.isin}
+                                    infoLink={`https://nasdaqbaltic.com/statistics/et/instrument/${el.isin}/trading`}
                                     detailedInfoModalSetter={this.setDetailedInfoModal} />))}
                             </tbody>
                         </table>
