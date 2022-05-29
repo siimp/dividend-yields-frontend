@@ -148,6 +148,7 @@ class DividendYield extends React.PureComponent<IDividendYieldProps, IDividendYi
         const promise: Promise<void> = fetch(this.getApiUrl())
             .then(response => response.json())
             .then(jsonData => this.setState({ data: jsonData }))
+            .catch(err => console.info(err))
 
         setTimeout(() => {
             this.setState({ loading: true });
